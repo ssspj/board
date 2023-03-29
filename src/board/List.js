@@ -1,34 +1,49 @@
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+const Table = styled.table`
+border-top: 2px solid tomato;
+width: 100%;
+`
+
+const Tr = styled.tr`
+height: 40px;
+`
+const Td = styled.td`
+border-bottom: 1px solid #ddd;
+`
 
 const List = ({ list }) => {
+    const natigate = useNavigate();
     return (
         <>
-            <table>
+            <Table>
                 <thead>
-                    <tr>
-                        <td>no</td>
-                        <td>제목</td>
-                        <td>글쓴이</td>
-                        <td>날짜</td>
-                    </tr>
+                    <Tr>
+                        <Td>no</Td>
+                        <Td>제목</Td>
+                        <Td>글쓴이</Td>
+                        <Td>날짜</Td>
+                    </Tr>
                 </thead>
                 <tbody>
                     {
                         list.map((it, idx) => {
                             return (
-                                <tr key={it.id}>
-                                    <td>{idx + 1}</td>
-                                    <td>{it.subject}</td>
-                                    <td>{it.name}</td>
-                                    <td>{it.date}</td>
-                                </tr>
+                                <Tr key={it.id}>
+                                    <Td>{idx + 1}</Td>
+                                    <Td><Link to={`/view/${it.id}`}>{it.subject}</Link></Td>
+                                    <Td>{it.name}</Td>
+                                    <Td>{it.date}</Td>
+                                </Tr>
                             )
                         })
                     }
                 </tbody>
-            </table>
+            </Table>
             <hr />
             <div>
-                <button>WRITE</button>
+                <button onClick={() => natigate('/write')}>WRITE</button>
             </div>
         </>
     )

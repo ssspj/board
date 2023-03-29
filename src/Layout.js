@@ -5,9 +5,9 @@ const Layout = () => {
     return (
         <>
             <ul>
-                <li><Link to="/">HOme</Link></li>
-                <li><Link to="/list">list</Link></li>
-                <li><Link to="/write">write</Link></li>
+                <li><Link to="/">홈</Link></li>
+                <li><Link to="/list">문의게시판</Link></li>
+                <li><Link to="/write">글쓰기</Link></li>
             </ul>
             <Outlet />
         </>
