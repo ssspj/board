@@ -38,8 +38,8 @@ const View = ({ list, setList }) => {
                     <strong style={{ whiteSpace: 'pre-line' }}>{itm.content}</strong>
                 </li>
             </ul>
-            <button onClick={onDelete}>DELETE</button>
-            <button onClick={onModify}>MODIFY</button>
+            <button onClick={onDelete}>삭제</button>
+            <button onClick={onModify}>수정</button>
 
         </>
     )

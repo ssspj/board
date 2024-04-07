@@ -5,15 +5,55 @@ import Modify from "./board/Modify";
 import View from "./board/View";
 import Write from "./board/Write";
 import Layout from "./Layout";
+import db from "./db";
+const express = require("express");
+const mysql = require("mysql");
+const bodyParser = require("body-parser");
+
+const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+db.connect(err => {
+    if (err) {
+        console.error("Error connecting to MySQL database:", err);
+    } else {
+        console.log("Connected to MySQL database.");
+    }
+});
+
+app.post("/write", (req, res) => {
+    const { title, author, content } = req.body;
+
+    const queryString = "INSERT INTO posts (title, author, content) VALUES (?, ?, ?)";
+    const values = [title, author, content];
+
+    db.query(queryString, values, (error, results, fields) => {
+        if (error) {
+            console.error("Error writing post:", error);
+            res.status(500).json({ error: "Error writing post" });
+        } else {
+            console.log("Post written successfully.");
+            res.status(200).json({ message: "Post written successfully" });
+        }
+    });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
 const App = () => {
 
     const [list, setList] = useState([
-        { id: 1, name: "관리자", subject: "첫번쨰 게시물...", content: "01우리나라 대한민국 가자 기영아 순이야", date: "2023.03.29" },
-        { id: 2, name: "관리자", subject: "두번쨰 게시물...", content: "02우리나라 대한민국 가자 기영아 순이야", date: "2023.03.30" },
+        
     ]);
 
-    const idRef = useRef(3);
+    const idRef = useRef(1);
     return (
         <Routes>
             <Route path="/" element={<Layout />}>

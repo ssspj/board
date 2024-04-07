@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+
 const Table = styled.table`
 border-top: 2px solid tomato;
 width: 100%;
